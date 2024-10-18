@@ -1,0 +1,80 @@
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.10);
+}
+
+.navLogoContainer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.navLogo {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+}
+
+.navTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    line-height: 1.2;
+}
+
+.navList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.navListLi {
+    padding: 24px;
+    position: relative;
+}
+
+.navMenu {
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: #1f2937;
+    opacity: 80%;
+    transition: color 0.2s ease-in-out;
+}
+
+.navMenu:hover {
+    color: #0d9488;
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    min-width: 200px;
+    z-index: 10;
+}
+
+.dropdownItem {
+    padding: 10px 20px;
+}
+
+.dropdownItem a {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    color: #1f2937;
+    transition: color 0.2s ease-in-out;
+}
+
+.dropdownItem a:hover {
+    color: #0d9488;
+}
