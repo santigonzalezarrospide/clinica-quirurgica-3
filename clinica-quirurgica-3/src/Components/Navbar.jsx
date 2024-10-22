@@ -1,35 +1,26 @@
 import React, { useState, useRef, useEffect } from 'react';
 import NavbarStyle from '../Styles/Navbar.module.css';
 import { Link } from 'react-router-dom';
-import { routes } from '../utils/routes'
+import { routes } from '../utils/routes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-
-
+import { faChevronDown, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const Navbar = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const dropdownRef = useRef(null); // Referencia al menú para detectar clics fuera
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const dropdownRef = useRef(null);
 
-    // Alterna el menú al hacer clic
-    const toggleDropdown = () => {
-        setIsDropdownOpen((prev) => !prev);
-    };
+    const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
+    const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
-    // Cierra el menú si se hace clic fuera de él
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (
-                dropdownRef.current &&
-                !dropdownRef.current.contains(event.target)
-            ) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setIsDropdownOpen(false);
             }
         };
         document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
+        return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
     return (
@@ -39,12 +30,16 @@ const Navbar = () => {
                 <span className={NavbarStyle.navTitle}>Clínica Quirúrgica 3</span>
             </Link>
 
-            <ul className={NavbarStyle.navList}>
+            <button className={NavbarStyle.hamburger} onClick={toggleMenu}>
+                <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} />
+            </button>
+
+            <ul className={`${NavbarStyle.navList} ${isMenuOpen ? NavbarStyle.showMenu : ''}`}>
                 <li className={NavbarStyle.navListLi} ref={dropdownRef}>
                     <h4 className={NavbarStyle.navMenu} onClick={toggleDropdown}>
-                        Estudiantes de grado <FontAwesomeIcon icon={faChevronDown} style={{ fontSize: '0.8em', marginLeft: '3px' }} />
+                        Estudiantes de grado{' '}
+                        <FontAwesomeIcon icon={faChevronDown} style={{ fontSize: '0.8em', marginLeft: '3px' }} />
                     </h4>
-
                     {isDropdownOpen && (
                         <ul className={NavbarStyle.dropdownMenu}>
                             <li className={NavbarStyle.dropdownItem}>

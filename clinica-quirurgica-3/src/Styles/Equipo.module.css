@@ -1,0 +1,70 @@
+.h2 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.cardsContainer {
+    display: grid;
+    padding: 20px;
+    justify-content: center;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+
+.buttonBack {
+    background-color: transparent;
+    color:  #0f766e;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 14px;
+    transition: background-color 0.2s;
+    margin: 30px;
+}
+
+.buttonBack:hover {
+    background-color: #f0fdfa;
+}
+
+@media (min-width: 1024px) {
+    .cardsContainer {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 1200px; 
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .cardsContainer {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .h2 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .cardsContainer {
+        grid-template-columns: 1fr;
+    }
+
+    .h2 {
+        font-size: 1.8rem;
+    }
+}
+

@@ -1,11 +1,12 @@
 import React from 'react'
+import HomeSection from "../Components/HomeSection";
 
 const Home = () => {
 
 
   return (
     <main className="" >
-      <h1>Home</h1>
+       <HomeSection />
  
     </main>
   )
