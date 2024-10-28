@@ -26,7 +26,7 @@ const Navbar = () => {
     return (
         <nav className={NavbarStyle.nav}>
             <Link to={routes.inicio} className={NavbarStyle.navLogoContainer}>
-                <img src="/public/img/logo.jpeg" alt="Logo CQ3" className={NavbarStyle.navLogo} />
+                <img src="/img/logo.jpeg" alt="Logo CQ3" className={NavbarStyle.navLogo} />
                 <span className={NavbarStyle.navTitle}>Clínica Quirúrgica 3</span>
             </Link>
 
@@ -56,20 +56,26 @@ const Navbar = () => {
                 </li>
 
                 <li className={NavbarStyle.navListLi}>
-                    <Link to={routes.paciente}>
-                        <h4 className={NavbarStyle.navMenu}>Pacientes</h4>
-                    </Link>
-                </li>
-
-                <li className={NavbarStyle.navListLi}>
                     <Link to={routes.postgrado}>
                         <h4 className={NavbarStyle.navMenu}>Posgrados</h4>
                     </Link>
                 </li>
 
                 <li className={NavbarStyle.navListLi}>
+                    <Link to={routes.paciente}>
+                        <h4 className={NavbarStyle.navMenu}>Usuarios</h4>
+                    </Link>
+                </li>
+
+                <li className={NavbarStyle.navListLi}>
                     <Link to={routes.equipo}>
                         <h4 className={NavbarStyle.navMenu}>Equipo</h4>
+                    </Link>
+                </li>
+
+                <li className={NavbarStyle.navListLi}>
+                    <Link to={routes.postgrado}>
+                        <h4 className={NavbarStyle.navMenu}>Biblioteca</h4>
                     </Link>
                 </li>
 

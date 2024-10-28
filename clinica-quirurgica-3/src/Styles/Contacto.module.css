@@ -109,15 +109,7 @@
     padding: 20px;
 }
 
-.contactContainer {
-    display: flex;
-    margin: 50px auto;
-    max-width: 900px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    overflow: hidden;
-    background-color: white;
-}
+
 
 @media (max-width: 768px) {
     .contactContainer {
