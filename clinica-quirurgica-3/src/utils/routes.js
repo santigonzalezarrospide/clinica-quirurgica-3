@@ -7,5 +7,6 @@ export const routes = {
     postgrado: "/postgrados",
     equipo: "/equipo",
     contacto: "/contacto",
-    login: "/login"
+    login: "/login",
+    adminPanel: "/adminPanel"
 };

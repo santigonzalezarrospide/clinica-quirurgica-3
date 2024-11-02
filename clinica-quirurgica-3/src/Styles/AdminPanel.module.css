@@ -1,0 +1,147 @@
+.adminPanel {
+    display: flex;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #e5e7eb;
+    padding: 20px;
+    border-right: 1px solid #e0e0e0;
+    /*height: 80vh;*/
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.2s;
+    font-weight: 500;
+    color: #1f2937;
+}
+
+.sidebar ul li svg {
+    margin-right: 10px;
+}
+
+.sidebar ul li:hover {
+    color: #0d9488;
+}
+
+/* Estilos del contenido principal */
+.mainContent {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.panelHeader {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.panelHeader h1 {
+    font-size: 24px;
+    margin: 0;
+    color: #1f2937;
+}
+
+.panelHeader p {
+    font-size: 14px;
+    color: #777;
+}
+
+.addButton {
+    padding: 10px 20px;
+    color: #ffffff;
+    background-color: #0d9488;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    gap: 10px;
+    transition: color 0.2s, background-color 0.2s;
+}
+
+.addButton:hover {
+    background-color: #0f766e;
+}
+
+/* Estilos de la tabla */
+.adminTableContainer {
+    max-height: 400px; /* Limita la altura total de la tabla */
+    overflow-y: auto; /* Activa el desplazamiento vertical cuando hay muchas filas */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    margin-bottom: 20px; /* Agrega un margen inferior para separación */
+}
+
+.adminTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+
+.adminTable thead {
+    position: sticky; /* Fija el encabezado */
+    top: 0; /* Se adhiere a la parte superior del contenedor */
+    background-color: #f8f9fa; /* Fondo del encabezado */
+    z-index: 1; /* Asegura que el encabezado esté sobre las filas */
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.adminTable th,
+.adminTable td {
+    padding: 12px 15px;
+    text-align: left;
+    height: 50px; /* Define una altura uniforme para las celdas */
+}
+
+.adminTable th {
+    font-size: 16px;
+    color: #333;
+}
+
+.adminTable td {
+    font-size: 14px;
+    color: #555;
+    border-top: 1px solid #e0e0e0;
+}
+
+.adminTable tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+/* Estilos de los botones de acción (editar y eliminar) */
+.actionButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.actionButton {
+    color: #333;
+    background-color: #e0e0e0;
+}
+
+.actionButton:hover {
+    background-color: #d4d4d4;
+}
