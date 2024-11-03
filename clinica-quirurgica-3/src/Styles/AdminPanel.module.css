@@ -7,7 +7,7 @@
     background-color: #e5e7eb;
     padding: 20px;
     border-right: 1px solid #e0e0e0;
-    /*height: 80vh;*/
+    height: 81vh;
 }
 
 .sidebar ul {
@@ -95,10 +95,10 @@
 
 
 .adminTable thead {
-    position: sticky; /* Fija el encabezado */
-    top: 0; /* Se adhiere a la parte superior del contenedor */
-    background-color: #f8f9fa; /* Fondo del encabezado */
-    z-index: 1; /* Asegura que el encabezado esté sobre las filas */
+    position: sticky; 
+    top: 0; 
+    background-color: #f8f9fa; 
+    z-index: 1; 
     border-bottom: 2px solid #e0e0e0;
 }
 
@@ -106,7 +106,6 @@
 .adminTable td {
     padding: 12px 15px;
     text-align: left;
-    height: 50px; /* Define una altura uniforme para las celdas */
 }
 
 .adminTable th {
@@ -124,7 +123,6 @@
     background-color: #f2f2f2;
 }
 
-/* Estilos de los botones de acción (editar y eliminar) */
 .actionButton {
     display: inline-flex;
     align-items: center;
@@ -135,11 +133,9 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-}
-
-.actionButton {
     color: #333;
     background-color: #e0e0e0;
+    margin-right: 10px;
 }
 
 .actionButton:hover {

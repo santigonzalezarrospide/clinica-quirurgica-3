@@ -17,6 +17,7 @@ const Equipo = () => {
     const fetchIntegrantes = async () => {
         try {
             const response = await getIntegrantes();
+            console.log(response.data)
             setIntegrantes(response.data);
         } catch (error) {
             console.error("Error al obtener los integrantes:", error);
@@ -29,13 +30,14 @@ const Equipo = () => {
 
     return (
         <div>
-            <h2 className={EquipoStyle.h2}>Nuestro Equípo Médico</h2>
+            <h2 className={EquipoStyle.h2}>Nuestro Equipo Médico</h2>
             <div className={EquipoStyle.cardsContainer}>
                 {integrantes.map((integrante) => (
                     <ProfileCard
                         key={integrante.id}
-                        image={integrante.imagen} 
+                        image={integrante.imagen}
                         name={integrante.nombre}
+                        apellido={integrante.apellido}
                         specialty={integrante.especialidad}
                         description={integrante.descripcion}
                     />
