@@ -1,30 +1,45 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProfileCard from '../Components/CardEquipo';
 import EquipoStyle from '../Styles/Equipo.module.css';
-import usuario from '../utils/equipo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { getIntegrantes } from '../api/integrantes-api';
 
 const Equipo = () => {
     const navigate = useNavigate();
+    const [integrantes, setIntegrantes] = useState([]);
 
     const handleBackClick = () => {
         navigate(-1);
     };
 
+    const fetchIntegrantes = async () => {
+        try {
+            const response = await getIntegrantes();
+            console.log(response.data)
+            setIntegrantes(response.data);
+        } catch (error) {
+            console.error("Error al obtener los integrantes:", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchIntegrantes();
+    }, []);
+
     return (
         <div>
-            <h2 className={EquipoStyle.h2}>Nuestro Equípo Médico</h2>
-
+            <h2 className={EquipoStyle.h2}>Nuestro Equipo Médico</h2>
             <div className={EquipoStyle.cardsContainer}>
-                {usuario.map((user) => (
+                {integrantes.map((integrante) => (
                     <ProfileCard
-                        key={user.id}
-                        image={user.image}
-                        name={user.name}
-                        specialty={user.specialty}
-                        description={user.description}
+                        key={integrante.id}
+                        image={integrante.imagen}
+                        name={integrante.nombre}
+                        apellido={integrante.apellido}
+                        specialty={integrante.especialidad}
+                        description={integrante.descripcion}
                     />
                 ))}
             </div>
@@ -36,8 +51,7 @@ const Equipo = () => {
                 </button>
             </div>
         </div>
-
-    )
+    );
 }
 
-export default Equipo
+export default Equipo;

@@ -1,0 +1,120 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.loginContainer {
+  display: flex;
+  margin: 50px auto;
+  max-width: 900px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: white;
+}
+
+.loginForm {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  text-align: center;
+}
+
+.loginForm h4 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.loginForm p {
+  color: #6c757d;
+  font-size: 12px;
+  padding: 10px;
+}
+
+.logo {
+  width: 100px;
+  margin-bottom: 1rem;
+}
+
+.formGroup {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.passwordWrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.togglePassword {
+  background-color: transparent;
+  border: none;
+  color: #888888;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 8px;
+  position: absolute;
+  right: 14px;
+  top: 58%;
+  transform: translateY(-50%);
+}
+
+.loginButton {
+  width: 100%;
+  padding: 0.75rem;
+  color: #ffffff;
+  background-color: #0d9488;
+  border: none;
+  cursor: pointer;
+  margin-top: 1rem;
+  font-weight: 500;
+  border-radius: 5px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.loginButton:hover {
+  background-color: #0f766e;
+}
+
+.buttonBack {
+  background-color: transparent;
+  color: #0f766e;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.buttonBack:hover {
+  background-color: #f0fdfa;
+}
+
+.error {
+  color: red !important;
+  font-size: 14px !important;
+}

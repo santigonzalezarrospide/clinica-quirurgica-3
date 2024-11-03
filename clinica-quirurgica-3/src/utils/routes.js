@@ -6,5 +6,7 @@ export const routes = {
     paciente: "/pacientes",
     postgrado: "/postgrados",
     equipo: "/equipo",
-    contacto: "/contacto"
+    contacto: "/contacto",
+    login: "/login",
+    adminPanel: "/adminPanel"
 };
