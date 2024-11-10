@@ -1,0 +1,208 @@
+.infoPacientes {
+    text-align: center;
+}
+
+.title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.description {
+    color: #666;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto 40px;
+}
+
+.cardsContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 20px;
+    margin-bottom: 50px;
+    padding: 40px;
+}
+
+.card {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.card h2 {
+    font-size: 1.5rem;
+    color: #0d9488;
+}
+
+.card p {
+    margin: 10px 0;
+    font-size: 1rem;
+    color: #666;
+}
+
+.card button {
+    background-color: #0d9488;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: color 0.2s, background-color 0.2s;
+}
+
+.card button:hover {
+    background-color: #0f766e;
+}
+
+
+.faqContainer {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    /* Incluye el padding en el ancho total */
+    display: flex;
+    /* Utiliza flexbox para centrar el contenido */
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.faqContent {
+    max-width: 800px;
+    width: 100%;
+}
+
+.faqTitle {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.MuiAccordion-root {
+    border-top: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+    box-shadow: none;
+    background-color: #ffffff;
+}
+
+.MuiAccordionSummary-root {
+    padding: 10px 0;
+}
+
+.MuiAccordionSummary-content {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #1f2937;
+}
+
+.MuiAccordionSummary-expandIconWrapper {
+    color: #1f2937;
+}
+
+.MuiAccordionDetails-root {
+    font-size: 0.95rem;
+    color: #1f2937;
+    padding-top: 10px;
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 1024px) {
+    .title {
+        font-size: 2rem;
+    }
+
+    .description {
+        font-size: 1rem;
+        max-width: 90%;
+    }
+
+    .card h2 {
+        font-size: 1.3rem;
+    }
+
+    .card button {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+
+    .faqTitle {
+        font-size: 1.8rem;
+    }
+
+    .faqContainer {
+        padding: 15px;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .title {
+        font-size: 1.8rem;
+    }
+
+    .description {
+        font-size: 0.9rem;
+    }
+
+    .card h2 {
+        font-size: 1.2rem;
+    }
+
+    .card p {
+        font-size: 0.9rem;
+    }
+
+    .card button {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
+
+    .faqTitle {
+        font-size: 1.6rem;
+    }
+
+    .faqContainer {
+        padding: 10px;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 1.5rem;
+    }
+
+    .description {
+        font-size: 0.8rem;
+    }
+
+    .card h2 {
+        font-size: 1.1rem;
+    }
+
+    .card p {
+        font-size: 0.8rem;
+    }
+
+    .card button {
+        padding: 5px 8px;
+        font-size: 0.8rem;
+    }
+
+    .faqTitle {
+        font-size: 1.4rem;
+    }
+
+    .faqContainer {
+        padding: 10px;
+        max-width: 100%;
+    }
+}

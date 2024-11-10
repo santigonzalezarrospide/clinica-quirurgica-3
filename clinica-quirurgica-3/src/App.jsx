@@ -9,6 +9,7 @@ import { Route, Routes } from "react-router-dom";
 import Equipo from "./Routes/Equipo";
 import Login from "./Routes/Login";
 import AdminPanel from "./Routes/AdminPanel";
+import InfoPaciente from "./Routes/InfoPaciente";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
       <div className="content">
         <Routes>
           <Route path={routes.inicio} element={<Home />} />
+          <Route path={routes.paciente} element={<InfoPaciente />} />
 
           <Route path={routes.equipo} element={<Equipo />} />
           <Route path={routes.contacto} element={<Contacto />} />
