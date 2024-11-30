@@ -37,6 +37,7 @@
 
 .modalContent input[type="text"],
 .modalContent input[type="file"],
+.modalContent input[type="password"],
 .modalContent textarea {
   width: 100%;
   padding: 10px;

@@ -27,7 +27,11 @@
 }
 
 .sidebar ul li svg {
-    margin-right: 10px;
+    margin-right: 12px;
+}
+
+.customPadding {
+    padding-right: 6px;
 }
 
 .sidebar ul li:hover {

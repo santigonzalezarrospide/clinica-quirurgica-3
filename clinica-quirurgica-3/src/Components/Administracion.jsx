@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { getIntegrantes, createIntegrante, updateIntegrante, deleteIntegrante } from '../api/integrantes-api';
+import { getUsuarios, createUsuario, updateUsuario, deleteUsuario } from '../api/administracion-api';
 import AdminPanelStyle from '../Styles/AdminPanel.module.css';
 import ConfirmPopupStyle from '../Styles/Alert.module.css';
-import ModalCrearIntegrante from '../Components/ModalIntegrante';
+import AdminModal from '../Components/AdminModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { toast, ToastContainer } from 'react-toastify';
@@ -10,73 +10,75 @@ import 'react-toastify/dist/ReactToastify.css';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
-const IntegranteTable = () => {
-    const [integrantes, setIntegrantes] = useState([]);
+const Administracion = () => {
+    const [usuarios, setUsuarios] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
-    const [selectedIntegrante, setSelectedIntegrante] = useState(null);
+    const [selectedUsu, setSelectedUsu] = useState(null);
+
 
     useEffect(() => {
-        fetchIntegrantes();
+        fetchUsuarios();
     }, []);
 
-    const fetchIntegrantes = async () => {
+    const fetchUsuarios = async () => {
         try {
-            const response = await getIntegrantes();
-            setIntegrantes(response.data);
+            const response = await getUsuarios();
+            console.log(response.data);
+            setUsuarios(response.data);
         } catch (error) {
-            toast.error("Error al obtener los integrantes");
+            toast.error("Error al obtener los Usuarios");
         }
     };
 
     const handleCreateClick = () => {
         setIsEdit(false);
-        setSelectedIntegrante(null);
+        setSelectedUsu(null);
         setIsModalOpen(true);
     };
 
-    const handleEditClick = (integrante) => {
+    const handleEditClick = (usuario) => {
         setIsEdit(true);
-        setSelectedIntegrante(integrante);
+        setSelectedUsu(usuario);
         setIsModalOpen(true);
     };
 
-    const handleModalSubmit = async (integranteData) => {
+    const handleModalSubmit = async (usuData) => {
         try {
             if (isEdit) {
-                await updateIntegrante(selectedIntegrante.id, integranteData);
-                toast.success("Integrante editado exitosamente");
+                await updateUsuario(selectedUsu.id, usuData);
+                toast.success("Usuario editado exitosamente");
             } else {
-                await createIntegrante(integranteData);
-                toast.success("Integrante creado exitosamente");
+                await createUsuario(usuData);
+                toast.success("Usuario creado exitosamente");
             }
             setIsModalOpen(false);
-            fetchIntegrantes();
+            fetchUsuarios();
         } catch (error) {
-            toast.error("Error al guardar el integrante");
+            toast.error("Error al guardar el usuario");
         }
     };
 
-    const handleDeleteClick = (integrante) => {
+    const handleDeleteClick = (usuario) => {
         confirmAlert({
             customUI: ({ onClose }) => {
                 return (
                     <div className={ConfirmPopupStyle.popupContainer}>
-                        <h1 className={ConfirmPopupStyle.popupTitle}>Eliminar Integrante</h1>
+                        <h1 className={ConfirmPopupStyle.popupTitle}>Eliminar Usuario</h1>
                         <p className={ConfirmPopupStyle.popupMessage}>
-                            ¿Estás seguro de que deseas eliminar a {integrante.nombre} {integrante.apellido}?
+                            ¿Estás seguro de que deseas eliminar a {usuario.nombre} {usuario.apellido}?
                         </p>
                         <div className={ConfirmPopupStyle.popupButtonGroup}>
                             <button
                                 className={ConfirmPopupStyle.confirmButton}
                                 onClick={async () => {
                                     try {
-                                        await deleteIntegrante(integrante.id);
-                                        toast.success("Integrante eliminado exitosamente");
-                                        fetchIntegrantes();
+                                        await deleteUsuario(usuario.id);
+                                        toast.success("Usuario eliminado exitosamente");
+                                        fetchUsuarios();
                                         onClose();
                                     } catch (error) {
-                                        toast.error("Error al eliminar el integrante");
+                                        toast.error("Error al eliminar el usuario");
                                     }
                                 }}
                             >
@@ -92,12 +94,13 @@ const IntegranteTable = () => {
         });
     };
 
+
     return (
         <main className={AdminPanelStyle.mainContent}>
             <div className={AdminPanelStyle.panelHeader}>
-                <h1>Equipo</h1>
+                <h1>Usuarios</h1>
                 <button className={AdminPanelStyle.addButton} onClick={handleCreateClick}>
-                    Crear integrante
+                    Crear usuario
                 </button>
             </div>
 
@@ -106,26 +109,21 @@ const IntegranteTable = () => {
                     <thead>
                         <tr>
                             <th>Nombre, Apellido</th>
-                            <th>Detalles</th>
+                            <th>Email</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {integrantes.map((integrante) => (
-                            <tr key={integrante.id}>
-                                <td>{integrante.nombre} {integrante.apellido}</td>
-                                <td>{integrante.especialidad}</td>
+                        {usuarios.map((usuario) => (
+                            <tr key={usuario.id}>
+                                <td>{usuario.nombre} {usuario.apellido}</td>
+                                <td>{usuario.email}</td>
                                 <td>
-                                    <button
-                                        className={AdminPanelStyle.actionButton}
-                                        onClick={() => handleEditClick(integrante)}
-                                    >
+                                    <button className={AdminPanelStyle.actionButton} onClick={() => handleEditClick(usuario)}>
                                         <FontAwesomeIcon icon={faEdit} />
                                     </button>
-                                    <button
-                                        className={AdminPanelStyle.actionButton}
-                                        onClick={() => handleDeleteClick(integrante)}
-                                    >
+
+                                    <button className={AdminPanelStyle.actionButton} onClick={() => handleDeleteClick(usuario)}>
                                         <FontAwesomeIcon icon={faTrash} />
                                     </button>
                                 </td>
@@ -135,10 +133,10 @@ const IntegranteTable = () => {
                 </table>
             </div>
 
-            <ModalCrearIntegrante
+            <AdminModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
-                integranteData={selectedIntegrante}
+                usuData={selectedUsu}
                 isEdit={isEdit}
                 onSubmit={handleModalSubmit}
             />
@@ -159,4 +157,4 @@ const IntegranteTable = () => {
     );
 };
 
-export default IntegranteTable;
+export default Administracion;

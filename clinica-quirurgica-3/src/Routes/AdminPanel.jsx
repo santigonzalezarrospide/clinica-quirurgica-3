@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../Components/Sidebar';
 import IntegranteTable from '../Components/IntegranteTable';
-import EspecialidadTable from '../Components/EspecialidadTable';
 import AdminPanelStyle from '../Styles/AdminPanel.module.css';
+import Administracion from '../Components/Administracion';
+import MiCuenta from '../Components/MiCuenta';
 
 const AdminPanel = () => {
   const [activeTable, setActiveTable] = useState('Equipo');
@@ -23,8 +24,10 @@ const AdminPanel = () => {
     switch (activeTable) {
       case 'Equipo':
         return <IntegranteTable />;
-      case 'Especialidades':
-        return <EspecialidadTable />;
+      case 'Administracion':
+        return <Administracion />;
+      case 'Mi cuenta':
+        return <MiCuenta />;
       default:
         return null;
     }
