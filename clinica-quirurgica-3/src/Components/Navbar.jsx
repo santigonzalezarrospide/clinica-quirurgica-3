@@ -35,7 +35,8 @@ const Navbar = () => {
             </button>
 
             <ul className={`${NavbarStyle.navList} ${isMenuOpen ? NavbarStyle.showMenu : ''}`}>
-                <li className={NavbarStyle.navListLi} ref={dropdownRef}>
+
+                {/* <li className={NavbarStyle.navListLi} ref={dropdownRef}>
                     <h4 className={NavbarStyle.navMenu} onClick={toggleDropdown}>
                         Estudiantes de grado{' '}
                         <FontAwesomeIcon icon={faChevronDown} style={{ fontSize: '0.8em', marginLeft: '3px' }} />
@@ -53,6 +54,12 @@ const Navbar = () => {
                             </li>
                         </ul>
                     )}
+                </li>*/}
+
+                <li className={NavbarStyle.navListLi}>
+                    <Link to={routes.grado}>
+                        <h4 className={NavbarStyle.navMenu}>Estudiantes de grado</h4>
+                    </Link>
                 </li>
 
                 <li className={NavbarStyle.navListLi}>
@@ -74,8 +81,14 @@ const Navbar = () => {
                 </li>
 
                 <li className={NavbarStyle.navListLi}>
-                    <Link to={routes.postgrado}>
+                    <Link to={routes.biblioteca}>
                         <h4 className={NavbarStyle.navMenu}>Biblioteca</h4>
+                    </Link>
+                </li>
+
+                <li className={NavbarStyle.navListLi}>
+                    <Link to={routes.unidades}>
+                        <h4 className={NavbarStyle.navMenu}>Unidades Asistenciales</h4>
                     </Link>
                 </li>
 

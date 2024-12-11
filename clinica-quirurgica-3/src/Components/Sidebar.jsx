@@ -8,13 +8,13 @@ import { logout } from '../api/administracion-api';
 const Sidebar = ({ setActiveTable }) => (
   <aside className={AdminPanelStyle.sidebar}>
     <ul>
-      <li onClick={() => setActiveTable('Estudiantes de grado')}>
+      <li onClick={() => setActiveTable('Estudiantes')}>
         <FontAwesomeIcon icon={faBook} className={AdminPanelStyle.customPadding}/> Estudiantes de grado
       </li>
       <li onClick={() => setActiveTable('Postgrado')}>
         <FontAwesomeIcon icon={faStethoscope} className={AdminPanelStyle.customPadding}/> Postgrado
       </li>
-      <li onClick={() => setActiveTable('Info para Pacientes')}>
+      <li onClick={() => setActiveTable('Info Pacientes')}>
         <FontAwesomeIcon icon={faInfoCircle} className={AdminPanelStyle.customPadding}/> Info para Pacientes
       </li>
       <li onClick={() => setActiveTable('Equipo')}>

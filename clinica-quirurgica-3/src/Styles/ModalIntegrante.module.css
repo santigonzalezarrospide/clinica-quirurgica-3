@@ -38,14 +38,16 @@
 .modalContent input[type="text"],
 .modalContent input[type="file"],
 .modalContent input[type="password"],
-.modalContent textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ced4da;
-  border-radius: 5px;
+.modalContent textarea, select{
+
   font-size: 0.9em;
   resize: none;
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .modalContent button[type="submit"] {
@@ -74,4 +76,28 @@
   font-size: 1.2em;
   color: #6c757d;
   cursor: pointer;
+}
+
+.formGroup {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.passwordWrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.togglePassword {
+  background-color: transparent;
+  border: none;
+  color: #888888;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 8px;
+  position: absolute;
+  right: 14px;
+  top: 58%;
+  transform: translateY(-50%);
 }

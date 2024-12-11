@@ -98,7 +98,7 @@ const Administracion = () => {
     return (
         <main className={AdminPanelStyle.mainContent}>
             <div className={AdminPanelStyle.panelHeader}>
-                <h1>Usuarios</h1>
+                <h1>Administación de usuarios</h1>
                 <button className={AdminPanelStyle.addButton} onClick={handleCreateClick}>
                     Crear usuario
                 </button>
