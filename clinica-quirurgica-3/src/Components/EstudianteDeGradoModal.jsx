@@ -6,7 +6,7 @@ const EstudianteDeGradoModal = ({ isOpen, onClose, materialData, isEdit, onSubmi
     const [descripcion, setDescripcion] = useState('');
     const [tipo, setTipo] = useState('');
     const [archivo, setArchivo] = useState(null);
-    const [archivoNombre, setArchivoNombre] = useState(''); 
+    const [archivoNombre, setArchivoNombre] = useState('');
 
     useEffect(() => {
         if (isEdit && materialData) {
@@ -31,9 +31,9 @@ const EstudianteDeGradoModal = ({ isOpen, onClose, materialData, isEdit, onSubmi
     }, [isEdit, materialData, isOpen]);
 
     const handleFileChange = (e) => {
-        const file = e.target.files[0];  
+        const file = e.target.files[0];
         setArchivo(file);
-        setArchivoNombre(file ? file.name : '');  
+        setArchivoNombre(file ? file.name : '');
     };
 
     const handleSubmit = (e) => {
@@ -46,8 +46,8 @@ const EstudianteDeGradoModal = ({ isOpen, onClose, materialData, isEdit, onSubmi
             formData.append('archivo', archivo);
         }
 
-        onSubmit(formData); 
-        onClose(); 
+        onSubmit(formData);
+        onClose();
     };
 
     if (!isOpen) return null;
@@ -71,12 +71,22 @@ const EstudianteDeGradoModal = ({ isOpen, onClose, materialData, isEdit, onSubmi
                         onChange={(e) => setDescripcion(e.target.value)}
                         required
                     />
-                    <select value={tipo} onChange={(e) => setTipo(e.target.value)} required>
-                        <option value="">Tipo de archivo</option>
-                        <option value="Video">Video</option>
-                        <option value="Documento">Documento</option>
-                        <option value="Imagen">Imagen</option>
-                    </select>
+      
+                    {!isEdit ?
+                        <select value={tipo} onChange={(e) => setTipo(e.target.value)} required>
+                            <option value="">Tipo de archivo</option>
+                            <option value="Video">Video</option>
+                            <option value="Documento">Documento</option>
+                            <option value="Imagen">Imagen</option>
+                        </select> :
+                        
+                        <select value={tipo} onChange={(e) => setTipo(e.target.value)} disabled>
+                            <option value="">Tipo de archivo</option>
+                            <option value="Video">Video</option>
+                            <option value="Documento">Documento</option>
+                            <option value="Imagen">Imagen</option>
+                        </select>
+                    }
 
                     {!isEdit ?
                         <input
@@ -84,10 +94,7 @@ const EstudianteDeGradoModal = ({ isOpen, onClose, materialData, isEdit, onSubmi
                             onChange={handleFileChange}
                             accept={tipo === 'Video' ? 'video/*' : tipo === 'Documento' ? 'application/*' : 'image/*'}
                         /> :
-                        <div className={ModalStyle.fileNameContainer}>
-                            <span>{archivoNombre}</span> 
-                            <button type="button" onClick={() => setArchivo(null)}>Eliminar archivo</button> 
-                        </div>
+                        ""
                     }
 
                     <button type="submit">{isEdit ? 'Editar material' : 'Agregar material'}</button>

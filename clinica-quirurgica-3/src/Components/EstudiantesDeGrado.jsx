@@ -93,42 +93,7 @@ const EstudiantesDeGrado = () => {
         });
     };
 
-    const handleDownloadClick = async (material) => {
-        console.log("Material recibido:", material);
-        
-        // Verifica si el material tiene un archivo disponible
-        if (!material.archivo) {
-            toast.error("No hay archivo disponible para descargar");
-            return;
-        }
     
-        try {
-            // Usamos getMaterialById para obtener los datos del material con su ID
-            const response = await getMaterialById(material.id);
-    
-            // Verifica que la respuesta y el archivo estén disponibles
-            if (response && response.archivo) {
-                // Si la respuesta tiene un archivo, lo manejamos como un Blob
-                const blob = new Blob([response.archivo], { type: response.tipo });
-                
-                // Crea un enlace de descarga
-                const link = document.createElement('a');
-                const url = URL.createObjectURL(blob); // Creamos un URL de objeto para el Blob
-                link.href = url;
-                link.download = material.titulo || 'archivo'; // Usamos el título como nombre del archivo
-                link.click(); // Simulamos el clic en el enlace para iniciar la descarga
-            } else {
-                toast.error("No se pudo obtener el archivo.");
-            }
-        } catch (error) {
-            // Maneja cualquier error que ocurra durante el proceso de descarga
-            console.error("Error al intentar descargar el archivo:", error);
-            toast.error("Error al intentar descargar el archivo");
-        }
-    };
-    
-      
-
     return (
         <main className={AdminPanelStyle.mainContent}>
             <div className={AdminPanelStyle.panelHeader}>
@@ -153,9 +118,6 @@ const EstudiantesDeGrado = () => {
                                 <td>{mate.titulo}</td>
                                 <td>{mate.tipo}</td>
                                 <td>
-                                    <button className={AdminPanelStyle.actionButton} onClick={() => handleDownloadClick(mate)}>
-                                        <FontAwesomeIcon icon={faDownload} />
-                                    </button>
                                     <button className={AdminPanelStyle.actionButton} onClick={() => handleEditClick(mate)}>
                                         <FontAwesomeIcon icon={faEdit} />
                                     </button>
