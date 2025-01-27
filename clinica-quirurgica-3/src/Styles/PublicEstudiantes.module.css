@@ -1,61 +1,112 @@
 .h2 {
     text-align: center;
     margin-top: 20px;
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: 700;
     color: #1f2937;
 }
 
-.cardsContainer {
-    display: grid;
-    padding: 20px;
-    justify-content: center;
-}
-
 .filtersWrapper {
     display: flex;
-    justify-content: center;
-    margin: 20px;
-    margin-inline: 300px;
-    background-color: white;
-    border-radius: 25px;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px auto;
+    max-width: 900px;
+    background-color: #ffffff;
+    padding: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 10px;
+    gap: 150px;
+    border-radius: 3px;
 }
 
+.searchBar {
+    position: relative;
+    flex: 1;
+}
+
+.searchInput {
+    width: 100%;
+    padding: 10px 15px 10px 40px;
+    border: 2px solid #ccfbf1;
+    border-radius: 5px;
+    outline: none;
+    font-size: 1rem;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) inset;
+    margin-top: 0px !important;
+}
+
+.searchInput:focus{
+    border: 2px solid #009688;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 12px; 
+    top: 50%;
+    transform: translateY(-50%);
+    color: #009688;
+    font-size: 1.2rem;
+    pointer-events: none; 
+}
+
+/* Contenedor de botones de filtro */
 .filters {
     display: flex;
-    gap: 15px;
+    gap: 10px;
+    background-color: #ccfbf1;
+    padding: 5px;
+    border-radius: 5px;
 }
 
+/* Botones de filtro */
 .filterButton {
-    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 15px;
     border: none;
-    border-radius: 25px;
-    background-color: #f4f4f4;
+    background-color: transparent;
     color: #333;
-    font-size: 16px;
+    font-size: 0.9rem;
     font-weight: 500;
     cursor: pointer;
-    width: 250px;
-    transition: background-color 0.2s, color 0.2s;
-}
-
-.filterButton:hover {
-    background-color: #e0e0e0;
+    transition: all 0.3s ease;
 }
 
 .filterButton.active {
     background-color: #009688;
     color: white;
+    border-radius: 5px;
 }
 
+
+
+/* Iconos en los botones */
+.filterIcon {
+    font-size: 1rem;
+}
+
+/* Contenedor de tarjetas */
+.cardsContainer {
+    display: grid;
+    padding: 20px;
+    justify-content: center;
+    gap: 20px;
+    background-color: #ffffff;
+    border: 2px solid #ccfbf1;
+    border-radius: 5px;
+
+}
+
+/* Ajustes para tamaños de pantalla */
 @media (min-width: 1024px) {
     .cardsContainer {
         grid-template-columns: repeat(4, 1fr);
-        max-width: 1200px; 
+        max-width: 1350px;
         margin: 0 auto;
-        gap: 20px;
+        margin-bottom: 20px;
     }
 }
 
@@ -70,6 +121,24 @@
 }
 
 @media (max-width: 767px) {
+    .filtersWrapper {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .filters {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .searchBar {
+        width: 100%;
+    }
+
+    .filterButton {
+        width: 100%;
+    }
+
     .cardsContainer {
         grid-template-columns: 1fr;
     }

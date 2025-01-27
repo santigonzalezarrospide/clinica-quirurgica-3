@@ -4,22 +4,20 @@ import { getMateriales } from '../api/material-api';
 import { toast } from 'react-toastify';
 import styles from '../Styles/PublicEstudiantes.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFile, faVideo, faImage } from '@fortawesome/free-solid-svg-icons';
+import { faFile, faVideo, faImage, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 const PublicEstudiantesDeGrado = () => {
-  const [materiales, setMateriales] = useState([]);
-  const [activeFilter, setActiveFilter] = useState('Documento');
-  const [filteredMateriales, setFilteredMateriales] = useState([]);
+  const [materiales, setMateriales] = useState([]); // Todos los materiales
+  const [activeFilter, setActiveFilter] = useState('Documento'); // Filtro activo (tipo)
+  const [searchQuery, setSearchQuery] = useState(''); // Valor del input de búsqueda
+  const [filteredMateriales, setFilteredMateriales] = useState([]); // Materiales filtrados
 
+  // Cargar materiales desde la API
   const fetchMateriales = async () => {
     try {
       const response = await getMateriales();
       setMateriales(response.data);
-      console.log(response.data);
-      
-
-      const initialFiltered = response.data.filter((material) => material.tipo === 'Documento');
-      setFilteredMateriales(initialFiltered);
+      filterMateriales(response.data, 'Documento', ''); // Cargar los documentos por defecto
     } catch (error) {
       toast.error('Error al obtener los materiales');
     }
@@ -29,51 +27,81 @@ const PublicEstudiantesDeGrado = () => {
     fetchMateriales();
   }, []);
 
-  const filterMateriales = (type) => {
-    setActiveFilter(type);
-
-    const filtered = materiales.filter((material) => material.tipo === type);
+  // Filtrar materiales por tipo y título
+  const filterMateriales = (data, type, query) => {
+    const filtered = data.filter(
+      (material) =>
+        material.tipo === type && material.titulo.toLowerCase().includes(query.toLowerCase())
+    );
     setFilteredMateriales(filtered);
+  };
+
+  // Manejar cambios en el filtro de tipo
+  const handleFilterChange = (type) => {
+    setActiveFilter(type);
+    filterMateriales(materiales, type, searchQuery);
+  };
+
+  // Manejar cambios en el input de búsqueda
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    filterMateriales(materiales, activeFilter, query);
   };
 
   return (
     <div>
       <h2 className={styles.h2}>Material para Estudiantes de Grado</h2>
 
+      {/* Barra de búsqueda y filtros */}
       <div className={styles.filtersWrapper}>
+        <div className={styles.searchBar}>
+          <input
+            type="text"
+            placeholder="Buscar..."
+            className={styles.searchInput}
+            value={searchQuery}
+            onChange={handleSearchChange} // Actualiza el estado de búsqueda
+          />
+          <FontAwesomeIcon icon={faMagnifyingGlass} className={styles.searchIcon} />
+        </div>
         <div className={styles.filters}>
           <button
             className={`${styles.filterButton} ${activeFilter === 'Documento' ? styles.active : ''}`}
-            onClick={() => filterMateriales('Documento')}
+            onClick={() => handleFilterChange('Documento')}
           >
-            <FontAwesomeIcon icon={faFile} /> Documentos
+            <FontAwesomeIcon icon={faFile} className={styles.filterIcon} /> Documentos
           </button>
           <button
             className={`${styles.filterButton} ${activeFilter === 'Imagen' ? styles.active : ''}`}
-            onClick={() => filterMateriales('Imagen')}
+            onClick={() => handleFilterChange('Imagen')}
           >
-            <FontAwesomeIcon icon={faImage} /> Imágenes
+            <FontAwesomeIcon icon={faImage} className={styles.filterIcon} /> Imágenes
           </button>
           <button
             className={`${styles.filterButton} ${activeFilter === 'Video' ? styles.active : ''}`}
-            onClick={() => filterMateriales('Video')}
+            onClick={() => handleFilterChange('Video')}
           >
-           <FontAwesomeIcon icon={faVideo} /> Videos
+            <FontAwesomeIcon icon={faVideo} className={styles.filterIcon} /> Videos
           </button>
         </div>
       </div>
 
       {/* Lista de materiales filtrados */}
       <div className={styles.cardsContainer}>
-        {filteredMateriales.map((material) => (
-          <CardMateriales
-            key={material.id}
-            tipo={material.tipo}
-            titulo={material.titulo}
-            descripcion={material.descripcion}
-            archivo={material.archivo}
-          />
-        ))}
+        {filteredMateriales.length > 0 ? (
+          filteredMateriales.map((material) => (
+            <CardMateriales
+              key={material.id}
+              tipo={material.tipo}
+              titulo={material.titulo}
+              descripcion={material.descripcion}
+              archivo={material.archivo}
+            />
+          ))
+        ) : (
+          <p>No se encontraron materiales.</p>
+        )}
       </div>
     </div>
   );

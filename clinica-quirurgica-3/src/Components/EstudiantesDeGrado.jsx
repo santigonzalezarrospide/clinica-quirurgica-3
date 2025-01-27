@@ -4,7 +4,7 @@ import { getMateriales, createMaterial, updateMaterial, deleteMaterial, getMater
 import ConfirmPopupStyle from '../Styles/Alert.module.css';
 import EstudianteModal from '../Components/EstudianteDeGradoModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrash, faDownload } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { confirmAlert } from 'react-confirm-alert';
