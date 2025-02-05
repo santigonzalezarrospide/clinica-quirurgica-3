@@ -7,30 +7,37 @@ import { logout } from '../api/administracion-api';
 
 const Sidebar = ({ setActiveTable }) => (
   <aside className={AdminPanelStyle.sidebar}>
+    <div className={AdminPanelStyle.navLogoContainer}>
+      <img src="/img/logo.jpeg" alt="Logo CQ3" className={AdminPanelStyle.navLogo} />
+      <span className={AdminPanelStyle.navTitle}>Clínica Quirúrgica 3</span>
+    </div>
+
     <ul>
       <li onClick={() => setActiveTable('Estudiantes')}>
-        <FontAwesomeIcon icon={faBook} className={AdminPanelStyle.customPadding}/> Estudiantes de grado
+        <FontAwesomeIcon icon={faBook} className={AdminPanelStyle.customPadding} /> Estudiantes de grado
       </li>
       <li onClick={() => setActiveTable('Postgrado')}>
-        <FontAwesomeIcon icon={faStethoscope} className={AdminPanelStyle.customPadding}/> Postgrado
+        <FontAwesomeIcon icon={faStethoscope} className={AdminPanelStyle.customPadding} /> Postgrado
       </li>
+      {/*
       <li onClick={() => setActiveTable('Info Pacientes')}>
         <FontAwesomeIcon icon={faInfoCircle} className={AdminPanelStyle.customPadding}/> Info para Pacientes
       </li>
+       */}
       <li onClick={() => setActiveTable('Equipo')}>
         <FontAwesomeIcon icon={faUsers} /> Equipo
       </li>
       <li onClick={() => setActiveTable('Biblioteca')}>
-        <FontAwesomeIcon icon={faBook} className={AdminPanelStyle.customPadding}/> Biblioteca
+        <FontAwesomeIcon icon={faBook} className={AdminPanelStyle.customPadding} /> Biblioteca
       </li>
       <li onClick={() => setActiveTable('Administracion')}>
         <FontAwesomeIcon icon={faUsers} /> Administración
       </li>
       <li onClick={() => setActiveTable('Mi cuenta')}>
-        <FontAwesomeIcon icon={faUser} className={AdminPanelStyle.customPadding}/> Mi cuenta
+        <FontAwesomeIcon icon={faUser} className={AdminPanelStyle.customPadding} /> Mi cuenta
       </li>
       <li onClick={logout}>
-        <FontAwesomeIcon icon={faRightFromBracket} className={AdminPanelStyle.customPadding}/> Cerrar sesión
+        <FontAwesomeIcon icon={faRightFromBracket} className={AdminPanelStyle.customPadding} /> Cerrar sesión
       </li>
     </ul>
   </aside>

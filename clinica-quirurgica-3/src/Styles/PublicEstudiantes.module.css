@@ -36,18 +36,18 @@
     margin-top: 0px !important;
 }
 
-.searchInput:focus{
+.searchInput:focus {
     border: 2px solid #009688;
 }
 
 .searchIcon {
     position: absolute;
-    left: 12px; 
+    left: 12px;
     top: 50%;
     transform: translateY(-50%);
     color: #009688;
     font-size: 1.2rem;
-    pointer-events: none; 
+    pointer-events: none;
 }
 
 /* Contenedor de botones de filtro */
@@ -100,6 +100,26 @@
 
 }
 
+.table {
+    width: 90%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.active{
+    background-color: #009688;
+    color: white;
+    border-radius: 5px;
+    width: 20px;
+    text-align: center;
+}
 /* Ajustes para tamaños de pantalla */
 @media (min-width: 1024px) {
     .cardsContainer {
@@ -139,9 +159,9 @@
         width: 100%;
     }
 
-    .cardsContainer {
-        grid-template-columns: 1fr;
-    }
+    /*.cardsContainer {
+         grid-template-columns: 1fr;
+     }*/
 
     .h2 {
         font-size: 1.8rem;

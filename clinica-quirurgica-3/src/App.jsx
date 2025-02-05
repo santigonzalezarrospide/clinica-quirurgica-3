@@ -5,7 +5,7 @@ import Home from "./Routes/Home";
 import Contacto from "./Routes/Contacto";
 
 import { routes } from "./utils/routes";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Equipo from "./Routes/Equipo";
 import Login from "./Routes/Login";
 import AdminPanel from "./Routes/AdminPanel";
@@ -16,11 +16,11 @@ import PublicBiblioteca from "./Routes/PublicBiblioteca";
 import PublicUnidades from "./Routes/PublicUnidades";
 
 function App() {
-
+  const location = useLocation();
 
   return (
     <div className="app">
-      <Navbar />
+      {location.pathname !== routes.adminPanel && <Navbar />}
       <div className="content">
         <Routes>
           <Route path={routes.inicio} element={<Home />} />
@@ -37,7 +37,7 @@ function App() {
           <Route path="*" element={<h1>Error 404 - Page not found</h1>} />
         </Routes>
       </div>
-      <Footer />
+      {location.pathname !== routes.adminPanel && <Footer />}
     </div>
   )
 }

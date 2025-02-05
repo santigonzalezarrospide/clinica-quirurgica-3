@@ -1,13 +1,11 @@
 .cardMateriales {
-    width: 300px;
+    width: 100%;
     border: 1px solid #ddd;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     background-color: #fff;
     transition: box-shadow 0.2s ease;
-    max-width: 400px;
-    margin: 10px;
 }
 
 .cardMateriales:hover {
