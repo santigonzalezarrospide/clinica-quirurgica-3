@@ -1,11 +1,11 @@
 export const routes = {
     inicio: "/",
-    material: "/estudiantes/material",
-    video: "/estudiantes/videos",
-    archivo: "/estudiantes/archivos",
-    paciente: "/pacientes",
+    grado: "/grado",
     postgrado: "/postgrados",
+    paciente: "/pacientes",
     equipo: "/equipo",
+    biblioteca: "/biblioteca",
+    unidades: "/unidades",
     contacto: "/contacto",
     login: "/login",
     adminPanel: "/adminPanel"

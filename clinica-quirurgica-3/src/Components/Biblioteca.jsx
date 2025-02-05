@@ -1,82 +1,83 @@
 import React, { useState, useEffect } from 'react';
-import { getIntegrantes, createIntegrante, updateIntegrante, deleteIntegrante } from '../api/integrantes-api';
 import AdminPanelStyle from '../Styles/AdminPanel.module.css';
+import { getBiblioteca, createLibro, updateLibro, deleteLibro, getLibroById } from '../api/biblioteca-api';
 import ConfirmPopupStyle from '../Styles/Alert.module.css';
-import ModalCrearIntegrante from '../Components/ModalIntegrante';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import BibliotecaModal from './BibliotecaModal';
 
-const IntegranteTable = () => {
-    const [integrantes, setIntegrantes] = useState([]);
+const Biblioteca = () => {
+    const [biblioteca, setBiblioteca] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
-    const [selectedIntegrante, setSelectedIntegrante] = useState(null);
+    const [selectedLibro, setSelectedLibro] = useState(null);
 
     useEffect(() => {
-        fetchIntegrantes();
+        fetchBiblioteca();
     }, []);
 
-    const fetchIntegrantes = async () => {
+    const fetchBiblioteca = async () => {
         try {
-            const response = await getIntegrantes();
-            setIntegrantes(response.data);
+            const response = await getBiblioteca();
+            console.log(response.data);
+            setBiblioteca(response.data);
         } catch (error) {
-            toast.error("Error al obtener los integrantes");
+            toast.error("Error al obtener la boblioteca");
         }
     };
 
     const handleCreateClick = () => {
         setIsEdit(false);
-        setSelectedIntegrante(null);
+        setSelectedLibro(null);
         setIsModalOpen(true);
     };
 
-    const handleEditClick = (integrante) => {
+    const handleEditClick = (libro) => {
         setIsEdit(true);
-        setSelectedIntegrante(integrante);
+        setSelectedLibro(libro);
         setIsModalOpen(true);
     };
 
-    const handleModalSubmit = async (integranteData) => {
+    const handleModalSubmit = async (libroData) => {
         try {
             if (isEdit) {
-                await updateIntegrante(selectedIntegrante.id, integranteData);
-                toast.success("Integrante editado exitosamente");
+                await updateLibro(selectedLibro.id, libroData);
+                toast.success("Publicación editada exitosamente");
             } else {
-                await createIntegrante(integranteData);
-                toast.success("Integrante creado exitosamente");
+                await createLibro(libroData);
+                toast.success("Publicación creada exitosamente");
             }
             setIsModalOpen(false);
-            fetchIntegrantes();
+            fetchBiblioteca();
         } catch (error) {
-            toast.error("Error al guardar el integrante");
+            toast.error("Error al guardar la publicación");
         }
     };
 
-    const handleDeleteClick = (integrante) => {
+    const handleDeleteClick = (libro) => {
         confirmAlert({
             customUI: ({ onClose }) => {
                 return (
                     <div className={ConfirmPopupStyle.popupContainer}>
-                        <h1 className={ConfirmPopupStyle.popupTitle}>Eliminar Integrante</h1>
+                        <h1 className={ConfirmPopupStyle.popupTitle}>Eliminar Publicación</h1>
                         <p className={ConfirmPopupStyle.popupMessage}>
-                            ¿Estás seguro de que deseas eliminar a {integrante.nombre} {integrante.apellido}?
+                            ¿Estás seguro de que deseas eliminar {libro.titulo}?
                         </p>
                         <div className={ConfirmPopupStyle.popupButtonGroup}>
                             <button
                                 className={ConfirmPopupStyle.confirmButton}
                                 onClick={async () => {
                                     try {
-                                        await deleteIntegrante(integrante.id);
-                                        toast.success("Integrante eliminado exitosamente");
-                                        fetchIntegrantes();
+                                        await deleteLibro(libro.id);
+                                        toast.success("Publicación eliminada exitosamente");
+                                        fetchBiblioteca();
                                         onClose();
                                     } catch (error) {
-                                        toast.error("Error al eliminar el integrante");
+                                        toast.error("Error al eliminar la publicación");
                                     }
                                 }}
                             >
@@ -92,12 +93,19 @@ const IntegranteTable = () => {
         });
     };
 
+    const formatDate = (dateString) => {
+        const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+        const date = new Date(dateString);
+        date.setDate(date.getDate() + 1);
+        return date.toLocaleDateString('es-ES', options);
+    };
+
     return (
         <main className={AdminPanelStyle.mainContent}>
             <div className={AdminPanelStyle.panelHeader}>
-                <h1>Equipo</h1>
+                <h1>Biblioteca</h1>
                 <button className={AdminPanelStyle.addButton} onClick={handleCreateClick}>
-                    Crear integrante
+                    Agregar publicación
                 </button>
             </div>
 
@@ -105,27 +113,23 @@ const IntegranteTable = () => {
                 <table className={AdminPanelStyle.adminTable}>
                     <thead>
                         <tr>
-                            <th>Nombre, Apellido</th>
-                            <th>Detalles</th>
+                            <th>Titulo</th>
+                            <th>Autor</th>
+                            <th>Fecha de publicación</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {integrantes.map((integrante) => (
-                            <tr key={integrante.id}>
-                                <td>{integrante.nombre} {integrante.apellido}</td>
-                                <td>{integrante.especialidad}</td>
+                        {biblioteca.map((biblio) => (
+                            <tr key={biblio.id}>
+                                <td>{biblio.titulo}</td>
+                                <td>{biblio.autor}</td>
+                                <td>{formatDate(biblio.anioPublicacion)}</td>
                                 <td>
-                                    <button
-                                        className={AdminPanelStyle.actionButton}
-                                        onClick={() => handleEditClick(integrante)}
-                                    >
+                                    <button className={AdminPanelStyle.actionButton} onClick={() => handleEditClick(biblio)}>
                                         <FontAwesomeIcon icon={faEdit} />
                                     </button>
-                                    <button
-                                        className={AdminPanelStyle.actionButton}
-                                        onClick={() => handleDeleteClick(integrante)}
-                                    >
+                                    <button className={AdminPanelStyle.actionButton} onClick={() => handleDeleteClick(biblio)}>
                                         <FontAwesomeIcon icon={faTrash} />
                                     </button>
                                 </td>
@@ -135,10 +139,10 @@ const IntegranteTable = () => {
                 </table>
             </div>
 
-            <ModalCrearIntegrante
+            <BibliotecaModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
-                integranteData={selectedIntegrante}
+                libroData={selectedLibro}
                 isEdit={isEdit}
                 onSubmit={handleModalSubmit}
             />
@@ -155,8 +159,9 @@ const IntegranteTable = () => {
                 pauseOnHover
                 theme="colored"
             />
+
         </main>
     );
 };
 
-export default IntegranteTable;
+export default Biblioteca

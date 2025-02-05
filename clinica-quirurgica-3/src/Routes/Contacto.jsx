@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { sendEmail } from '../api/email-api';
 import ContactStyle from '../Styles/Contacto.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone, faEnvelope, faLocationDot, faPaperPlane, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -13,6 +14,8 @@ const Contacto = () => {
         asunto: '',
         mensaje: '',
     });
+    const [loading, setLoading] = useState(false); // Estado para mostrar el cargando
+    const [error, setError] = useState(null); // Estado para manejar errores
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -22,10 +25,28 @@ const Contacto = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Datos del formulario:', formData);
-        alert('Formulario enviado con éxito');
+        setLoading(true);
+        setError(null);
+
+        try {
+            // Llamar a la API para enviar el correo
+            const response = await sendEmail(formData);
+            alert('Formulario enviado con éxito: ' + response.message);
+            setFormData({
+                nombre: '',
+                apellido: '',
+                email: '',
+                asunto: '',
+                mensaje: '',
+            });
+        } catch (err) {
+            console.error('Error al enviar el formulario:', err);
+            setError('Hubo un problema al enviar el formulario. Por favor, inténtalo de nuevo.');
+        } finally {
+            setLoading(false);
+        }
     };
 
     const handleBackClick = () => {
@@ -94,9 +115,10 @@ const Contacto = () => {
                         onChange={handleChange}
                         required
                     />
-                    <button type="submit">
-                        <FontAwesomeIcon icon={faPaperPlane} /> Enviar Mensaje
+                    <button type="submit" disabled={loading}>
+                        {loading ? 'Enviando...' : <><FontAwesomeIcon icon={faPaperPlane} /> Enviar Mensaje</>}
                     </button>
+                    {error && <p className={ContactStyle.error}>{error}</p>}
                 </form>
             </div>
         </div>

@@ -1,0 +1,86 @@
+.mainContent {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.panelHeader {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.panelHeader h1 {
+    font-size: 24px;
+    margin: 0;
+    color: #1f2937;
+}
+
+.panelHeader p {
+    font-size: 14px;
+    color: #777;
+}
+
+.miCuentaForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.inputGroup label {
+    font-size: 14px;
+    color: #1f2937;
+}
+
+.inputGroup input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.addButton {
+    background-color: #0d9488;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-weight: 500;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.addButton:hover {
+    background-color: #0f766e;
+}
+
+.resetButton {
+    background-color: #e5e7eb;
+    color: #1f2937;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-weight: 500;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.resetButton:hover {
+    background-color: #d1d5db;
+}

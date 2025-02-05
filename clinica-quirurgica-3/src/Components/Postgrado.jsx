@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { getIntegrantes, createIntegrante, updateIntegrante, deleteIntegrante } from '../api/integrantes-api';
 import AdminPanelStyle from '../Styles/AdminPanel.module.css';
+import { getMaterialesPosgrado, createMaterialPosgrado, updateMaterialPosgrado, deleteMaterialPosgrado, getMaterialByIdPosgrado } from '../api/posgrado-api';
 import ConfirmPopupStyle from '../Styles/Alert.module.css';
-import ModalCrearIntegrante from '../Components/ModalIntegrante';
+import EstudianteModal from '../Components/EstudianteDeGradoModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { toast, ToastContainer } from 'react-toastify';
@@ -10,73 +10,74 @@ import 'react-toastify/dist/ReactToastify.css';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
-const IntegranteTable = () => {
-    const [integrantes, setIntegrantes] = useState([]);
+const Postgrado = () => {
+    const [material, setMaterial] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
-    const [selectedIntegrante, setSelectedIntegrante] = useState(null);
+    const [selectedMaterial, setSelectedMaterial] = useState(null);
 
     useEffect(() => {
-        fetchIntegrantes();
+        fetchMateriales();
     }, []);
 
-    const fetchIntegrantes = async () => {
+    const fetchMateriales = async () => {
         try {
-            const response = await getIntegrantes();
-            setIntegrantes(response.data);
+            const response = await getMaterialesPosgrado();
+            console.log(response.data);
+            setMaterial(response.data);
         } catch (error) {
-            toast.error("Error al obtener los integrantes");
+            toast.error("Error al obtener los materiales");
         }
     };
 
     const handleCreateClick = () => {
         setIsEdit(false);
-        setSelectedIntegrante(null);
+        setSelectedMaterial(null);
         setIsModalOpen(true);
     };
 
-    const handleEditClick = (integrante) => {
+    const handleEditClick = (material) => {
         setIsEdit(true);
-        setSelectedIntegrante(integrante);
+        setSelectedMaterial(material);
         setIsModalOpen(true);
     };
 
-    const handleModalSubmit = async (integranteData) => {
+    const handleModalSubmit = async (materialData) => {
         try {
             if (isEdit) {
-                await updateIntegrante(selectedIntegrante.id, integranteData);
-                toast.success("Integrante editado exitosamente");
+                await updateMaterialPosgrado(selectedMaterial.id, materialData);
+                toast.success("Material editado exitosamente");
             } else {
-                await createIntegrante(integranteData);
-                toast.success("Integrante creado exitosamente");
+                await createMaterialPosgrado(materialData);
+                toast.success("Material creado exitosamente");
             }
             setIsModalOpen(false);
-            fetchIntegrantes();
+            fetchMateriales();
         } catch (error) {
-            toast.error("Error al guardar el integrante");
+            toast.error("Error al guardar el material");
         }
     };
 
-    const handleDeleteClick = (integrante) => {
+    const handleDeleteClick = (material) => {
         confirmAlert({
             customUI: ({ onClose }) => {
                 return (
                     <div className={ConfirmPopupStyle.popupContainer}>
-                        <h1 className={ConfirmPopupStyle.popupTitle}>Eliminar Integrante</h1>
+                        <h1 className={ConfirmPopupStyle.popupTitle}>Eliminar Material</h1>
                         <p className={ConfirmPopupStyle.popupMessage}>
-                            ¿Estás seguro de que deseas eliminar a {integrante.nombre} {integrante.apellido}?
+                            ¿Estás seguro de que deseas eliminar {material.titulo}?
                         </p>
                         <div className={ConfirmPopupStyle.popupButtonGroup}>
                             <button
                                 className={ConfirmPopupStyle.confirmButton}
                                 onClick={async () => {
                                     try {
-                                        await deleteIntegrante(integrante.id);
-                                        toast.success("Integrante eliminado exitosamente");
-                                        fetchIntegrantes();
+                                        await deleteMaterialPosgrado(material.id);
+                                        toast.success("Material eliminado exitosamente");
+                                        fetchMateriales();
                                         onClose();
                                     } catch (error) {
-                                        toast.error("Error al eliminar el integrante");
+                                        toast.error("Error al eliminar el material");
                                     }
                                 }}
                             >
@@ -95,9 +96,9 @@ const IntegranteTable = () => {
     return (
         <main className={AdminPanelStyle.mainContent}>
             <div className={AdminPanelStyle.panelHeader}>
-                <h1>Equipo</h1>
+                <h1>Posgrado</h1>
                 <button className={AdminPanelStyle.addButton} onClick={handleCreateClick}>
-                    Crear integrante
+                    Agregar material
                 </button>
             </div>
 
@@ -105,27 +106,21 @@ const IntegranteTable = () => {
                 <table className={AdminPanelStyle.adminTable}>
                     <thead>
                         <tr>
-                            <th>Nombre, Apellido</th>
-                            <th>Detalles</th>
+                            <th>Título</th>
+                            <th>Tipo de archivo</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {integrantes.map((integrante) => (
-                            <tr key={integrante.id}>
-                                <td>{integrante.nombre} {integrante.apellido}</td>
-                                <td>{integrante.especialidad}</td>
+                        {material.map((mate) => (
+                            <tr key={mate.id}>
+                                <td>{mate.titulo}</td>
+                                <td>{mate.tipo}</td>
                                 <td>
-                                    <button
-                                        className={AdminPanelStyle.actionButton}
-                                        onClick={() => handleEditClick(integrante)}
-                                    >
+                                    <button className={AdminPanelStyle.actionButton} onClick={() => handleEditClick(mate)}>
                                         <FontAwesomeIcon icon={faEdit} />
                                     </button>
-                                    <button
-                                        className={AdminPanelStyle.actionButton}
-                                        onClick={() => handleDeleteClick(integrante)}
-                                    >
+                                    <button className={AdminPanelStyle.actionButton} onClick={() => handleDeleteClick(mate)}>
                                         <FontAwesomeIcon icon={faTrash} />
                                     </button>
                                 </td>
@@ -135,10 +130,10 @@ const IntegranteTable = () => {
                 </table>
             </div>
 
-            <ModalCrearIntegrante
+            <EstudianteModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
-                integranteData={selectedIntegrante}
+                materialData={selectedMaterial}
                 isEdit={isEdit}
                 onSubmit={handleModalSubmit}
             />
@@ -157,6 +152,6 @@ const IntegranteTable = () => {
             />
         </main>
     );
-};
+}
 
-export default IntegranteTable;
+export default Postgrado

@@ -2,12 +2,33 @@
     display: flex;
 }
 
+.navLogoContainer {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.navLogo {
+    height: 70px;
+    width: auto;
+    object-fit: contain;
+    margin-right: 10px;
+}
+
+.navTitle {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1f2937;
+}
+
 .sidebar {
     width: 250px;
     background-color: #e5e7eb;
     padding: 20px;
+    padding-top: 0;
     border-right: 1px solid #e0e0e0;
-    height: 81vh;
+    height: 100vh;
 }
 
 .sidebar ul {
@@ -27,7 +48,11 @@
 }
 
 .sidebar ul li svg {
-    margin-right: 10px;
+    margin-right: 12px;
+}
+
+.customPadding {
+    padding-right: 6px;
 }
 
 .sidebar ul li:hover {
@@ -80,12 +105,15 @@
 
 /* Estilos de la tabla */
 .adminTableContainer {
-    max-height: 400px; /* Limita la altura total de la tabla */
-    overflow-y: auto; /* Activa el desplazamiento vertical cuando hay muchas filas */
+    max-height: 400px;
+    /* Limita la altura total de la tabla */
+    overflow-y: auto;
+    /* Activa el desplazamiento vertical cuando hay muchas filas */
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: white;
-    margin-bottom: 20px; /* Agrega un margen inferior para separación */
+    margin-bottom: 20px;
+    /* Agrega un margen inferior para separación */
 }
 
 .adminTable {
@@ -95,10 +123,10 @@
 
 
 .adminTable thead {
-    position: sticky; 
-    top: 0; 
-    background-color: #f8f9fa; 
-    z-index: 1; 
+    position: sticky;
+    top: 0;
+    background-color: #f8f9fa;
+    z-index: 1;
     border-bottom: 2px solid #e0e0e0;
 }
 
