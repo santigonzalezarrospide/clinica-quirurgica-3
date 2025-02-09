@@ -72,7 +72,7 @@ const PublicBiblioteca = () => {
           pageRangeDisplayed={5}
           onPageChange={handlePageClick}
           containerClassName={styles.pagination}
-          activeClassName={`${styles.active} ${styles.activeDark}`}
+          activeClassName={`${styles.paginationActive} ${styles.activeDark}`}
         />
         
       </div>
