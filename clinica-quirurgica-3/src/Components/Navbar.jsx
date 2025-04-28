@@ -76,7 +76,7 @@ const Navbar = () => {
 
                 <li className={NavbarStyle.navListLi}>
                     <Link to={routes.equipo}>
-                        <h4 className={NavbarStyle.navMenu}>Equipo</h4>
+                        <h4 className={NavbarStyle.navMenu}>Sobre nosotros</h4>
                     </Link>
                 </li>
 

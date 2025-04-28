@@ -6,6 +6,7 @@ const EstudianteDeGradoModal = ({ isOpen, onClose, materialData, isEdit, onSubmi
     const [descripcion, setDescripcion] = useState('');
     const [tipo, setTipo] = useState('');
     const [archivo, setArchivo] = useState(null);
+    const [url, setUrl] = useState('');
     const [archivoNombre, setArchivoNombre] = useState('');
 
     useEffect(() => {
@@ -21,12 +22,14 @@ const EstudianteDeGradoModal = ({ isOpen, onClose, materialData, isEdit, onSubmi
                 setArchivo(null);
                 setArchivoNombre('');
             }
+            setUrl(materialData.url || '');
         } else {
             setTitulo('');
             setDescripcion('');
             setTipo('');
             setArchivo(null);
             setArchivoNombre('');
+            setUrl('');
         }
     }, [isEdit, materialData, isOpen]);
 
@@ -44,6 +47,9 @@ const EstudianteDeGradoModal = ({ isOpen, onClose, materialData, isEdit, onSubmi
         formData.append('tipo', tipo);
         if (archivo) {
             formData.append('archivo', archivo);
+        }
+        if (tipo === 'Video' && url) {
+            formData.append('url', url);
         }
 
         onSubmit(formData);
@@ -72,30 +78,43 @@ const EstudianteDeGradoModal = ({ isOpen, onClose, materialData, isEdit, onSubmi
                         required
                     />
       
-                    {!isEdit ?
-                        <select value={tipo} onChange={(e) => setTipo(e.target.value)} required>
-                            <option value="">Tipo de archivo</option>
-                            <option value="Video">Video</option>
-                            <option value="Documento">Documento</option>
-                            <option value="Imagen">Imagen</option>
-                        </select> :
-                        
+                    {!isEdit ? (
+                        <>
+                            <select value={tipo} onChange={(e) => setTipo(e.target.value)} required>
+                                <option value="">Tipo de archivo</option>
+                                <option value="Video">Video</option>
+                                <option value="Documento">Documento</option>
+                                <option value="Imagen">Imagen</option>
+                            </select>
+                            {tipo === 'Video' && (
+                                <>
+                                    <p style={{ marginBottom: 0 }}>Puede cargar un video mediante URL o mediante archivo</p>
+                                    <input
+                                        type="url"
+                                        placeholder="URL del video"
+                                        value={url}
+                                        onChange={(e) => {
+                                            setUrl(e.target.value);
+                                            setArchivo(null);
+                                            setArchivoNombre('');
+                                        }}
+                                    />
+                                </>
+                            )}
+                            <input
+                                type="file"
+                                onChange={handleFileChange}
+                                accept={tipo === 'Video' ? 'video/*' : tipo === 'Documento' ? 'application/*' : 'image/*'}
+                            />
+                        </>
+                    ) : (
                         <select value={tipo} onChange={(e) => setTipo(e.target.value)} disabled>
                             <option value="">Tipo de archivo</option>
                             <option value="Video">Video</option>
                             <option value="Documento">Documento</option>
                             <option value="Imagen">Imagen</option>
                         </select>
-                    }
-
-                    {!isEdit ?
-                        <input
-                            type="file"
-                            onChange={handleFileChange}
-                            accept={tipo === 'Video' ? 'video/*' : tipo === 'Documento' ? 'application/*' : 'image/*'}
-                        /> :
-                        ""
-                    }
+                    )}
 
                     <button type="submit">{isEdit ? 'Editar material' : 'Agregar material'}</button>
                 </form>

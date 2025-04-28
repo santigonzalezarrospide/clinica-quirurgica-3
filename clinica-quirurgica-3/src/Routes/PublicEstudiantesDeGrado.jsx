@@ -16,6 +16,7 @@ const PublicEstudiantesDeGrado = () => {
   const fetchMateriales = async () => {
     try {
       const response = await getMateriales();
+      console.log(response.data);
       setMateriales(response.data);
       filterMateriales(response.data, 'Documento', ''); // Cargar los documentos por defecto
     } catch (error) {
@@ -97,6 +98,7 @@ const PublicEstudiantesDeGrado = () => {
               titulo={material.titulo}
               descripcion={material.descripcion}
               archivo={material.archivo}
+              videoUrl={material.url}
             />
           ))
         ) : (

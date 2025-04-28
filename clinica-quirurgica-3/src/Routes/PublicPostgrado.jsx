@@ -15,6 +15,7 @@ const PublicPostgrado = () => {
   const fetchMateriales = async () => {
     try {
       const response = await getMaterialesPosgrado();
+      console.log(response.data);
       setMateriales(response.data);
       filterMateriales(response.data, 'Documento', '');
     } catch (error) {
