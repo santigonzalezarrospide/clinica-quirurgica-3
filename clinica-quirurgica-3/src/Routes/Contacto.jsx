@@ -68,17 +68,17 @@ const Contacto = () => {
                     </p>
 
                     <ul>
-                        <li>
+                        {/*  <li>
                             <FontAwesomeIcon icon={faPhone} />
                             <span className={ContactStyle.separator}>+1 (555) 123-4567</span>
-                        </li>
+                        </li>*/}
                         <li>
                             <FontAwesomeIcon icon={faEnvelope} />
-                            <span className={ContactStyle.separator}>info@clinicaquirurgica3.com</span>
+                            <span className={ContactStyle.separator}>clinicaquirurgica3@gmail.com</span>
                         </li>
                         <li>
                             <FontAwesomeIcon icon={faLocationDot} />
-                            <span className={ContactStyle.separator}>123 Calle Principal, Ciudad, País</span>
+                            <span className={ContactStyle.separator}>Hosítal Maciel, 25 de Mayo 174, 11000 <br /> Montevideo, Uruguay</span>
                         </li>
                     </ul>
                 </div>

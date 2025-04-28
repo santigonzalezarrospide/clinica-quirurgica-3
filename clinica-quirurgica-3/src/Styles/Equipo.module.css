@@ -18,6 +18,45 @@
     margin-top: 20px;
 }
 
+.descripcion {
+    position: relative;
+    text-align: center;
+    margin: 20px auto;
+    padding: 40px 20px;
+    overflow: hidden;
+    background-image: url('/public/img/img_fondo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.descripcion::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 1;
+}
+
+.descripcion ul {
+    position: relative;
+    z-index: 2;
+    list-style-type: disc; 
+    padding-left: 20px;
+    text-align: left;
+}
+
+.descripcion li {
+    margin-bottom: 10px;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #000000;
+    font-weight: bold;
+}
+
 
 .buttonBack {
     background-color: transparent;

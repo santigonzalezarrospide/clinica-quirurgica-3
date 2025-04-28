@@ -3,8 +3,9 @@ import MaterialesStyle from '../Styles/CardMateriales.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFile, faVideo, faImage, faPlay, faDownload } from '@fortawesome/free-solid-svg-icons';
 
-const CardMateriales = ({ tipo = 'Documento', titulo, descripcion, imagenSrc, archivo }) => {
+const CardMateriales = ({ tipo = 'Documento', titulo, descripcion, imagenSrc, archivo, videoUrl }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [videoSrc, setVideoSrc] = useState(null);
 
     const getButtonText = () => {
         switch (tipo) {
@@ -52,6 +53,22 @@ const CardMateriales = ({ tipo = 'Documento', titulo, descripcion, imagenSrc, ar
         return null;
     };
 
+
+    const getYouTubeEmbedUrl = (url) => {
+        const regExp = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+        const match = url.match(regExp);
+        return match ? `https://www.youtube.com/embed/${match[1]}` : null;
+    };
+
+    const getVideoSrc = () => {
+        if (archivo && archivo.data) {
+            const videoBlob = new Blob([new Uint8Array(archivo.data)], { type: archivo.mimeType });
+            return URL.createObjectURL(videoBlob);
+        }
+        return videoUrl || null;
+    };
+
+
     const handleButtonClick = () => {
         if (tipo === 'Imagen') {
             setIsModalOpen(true);
@@ -79,13 +96,22 @@ const CardMateriales = ({ tipo = 'Documento', titulo, descripcion, imagenSrc, ar
     
             // Liberar la URL después de usarla
             URL.revokeObjectURL(url);
-        } else {
+        } 
+        else if (tipo === 'Video') {
+            const video = getVideoSrc();
+            if (video) {
+                setVideoSrc(video);
+                setIsModalOpen(true);
+            }
+        }
+        else {
             console.log('Acción no soportada para tipo:', tipo);
         }
     };
 
     const closeModal = () => {
         setIsModalOpen(false);
+        setVideoSrc(null);
     };
 
     const renderBodyContent = () => {
@@ -95,8 +121,58 @@ const CardMateriales = ({ tipo = 'Documento', titulo, descripcion, imagenSrc, ar
                 return <img src={src} alt={titulo} className={MaterialesStyle.cardImage} />;
             }
             return <p className={MaterialesStyle.cardDescription}>Imagen no disponible</p>;
+        }else if (tipo === 'Video') {
+            const video = getVideoSrc();
+            if (video) {
+                const youtubeEmbed = getYouTubeEmbedUrl(video);
+                if (youtubeEmbed) {
+                    return (
+                        <iframe
+                            className={MaterialesStyle.cardVideo}
+                            src={youtubeEmbed}
+                            title={titulo}
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                        />
+                    );
+                } else {
+                    return (
+                        <video controls className={MaterialesStyle.cardVideo}>
+                            <source src={video} type="video/mp4" />
+                            Tu navegador no soporta la reproducción de videos.
+                        </video>
+                    );
+                }
+            }
+            return <p className={MaterialesStyle.cardDescription}>Video no disponible</p>;
         }
         return <p className={MaterialesStyle.cardDescription}>{descripcion}</p>;
+    };
+
+
+    const renderModalContent = () => {
+        if (tipo === 'Imagen') {
+            return <img src={getImageSrc()} alt={titulo} className={MaterialesStyle.modalImage} />
+        } else if (tipo === 'Video' && videoSrc) {
+            const youtubeEmbed = getYouTubeEmbedUrl(videoSrc);
+            return youtubeEmbed ? (
+                <iframe
+                    className={MaterialesStyle.modalVideo}
+                    src={youtubeEmbed}
+                    title={titulo}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                />
+            ) : (
+                <video controls autoPlay className={MaterialesStyle.modalVideo}>
+                    <source src={videoSrc} type="video/mp4" />
+                    Tu navegador no soporta la reproducción de videos.
+                </video>
+            );
+        }
+        return null;
     };
 
     return (
@@ -105,9 +181,7 @@ const CardMateriales = ({ tipo = 'Documento', titulo, descripcion, imagenSrc, ar
                 <span className={MaterialesStyle.cardIcon}>{getIcon()}</span>
                 <span className={MaterialesStyle.cardTitle}>{titulo}</span>
             </div>
-            <div className={MaterialesStyle.cardBody}>
-                {renderBodyContent()}
-            </div>
+            <div className={MaterialesStyle.cardBody}>{renderBodyContent()}</div>
             <div className={MaterialesStyle.cardFooter}>
                 <button className={MaterialesStyle.cardButton} onClick={handleButtonClick}>
                     <span className={MaterialesStyle.buttonIcon}>{getButtonIcon()}</span> {getButtonText()}
@@ -118,7 +192,7 @@ const CardMateriales = ({ tipo = 'Documento', titulo, descripcion, imagenSrc, ar
                 <div className={MaterialesStyle.modalOverlay} onClick={closeModal}>
                     <div className={MaterialesStyle.modalContent} onClick={(e) => e.stopPropagation()}>
                         <button className={MaterialesStyle.closeButton} onClick={closeModal}>X</button>
-                        <img src={getImageSrc()} alt={titulo} className={MaterialesStyle.modalImage} />
+                        {renderModalContent()}
                     </div>
                 </div>
             )}

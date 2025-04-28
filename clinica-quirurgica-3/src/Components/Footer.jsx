@@ -5,6 +5,9 @@ import { routes } from '../utils/routes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareFacebook, faSquareXTwitter, faSquareInstagram } from '@fortawesome/free-brands-svg-icons';
 
+const getCurrentYear = () => {
+    return new Date().getFullYear();
+};
 
 const Footer = () => {
     return (
@@ -13,17 +16,16 @@ const Footer = () => {
                 <div className={FooterStyle.footerColumn}>
                     <h4>Clínica Quirúrgica 3</h4>
                     <p>
-                        Brindando atención quirúrgica de excelencia y cuidado médico
-                        especializado desde 1985.
+                        También puedes seguirnos en nuestras redes sociales:
                     </p>
                     <div className={FooterStyle.socialIcons}>
-                        <a href="#">
+                        {/* <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
                             <FontAwesomeIcon icon={faSquareFacebook} />
-                        </a>
-                        <a href="#">
+                        </a>*/}
+                        <a href="https://www.twitter.com/clinica_3" target="_blank" rel="noopener noreferrer">
                             <FontAwesomeIcon icon={faSquareXTwitter} />
                         </a>
-                        <a href="#">
+                        <a href="https://www.instagram.com/clinicaquirurgica3" target="_blank" rel="noopener noreferrer">
                             <FontAwesomeIcon icon={faSquareInstagram} />
                         </a>
                     </div>
@@ -31,9 +33,9 @@ const Footer = () => {
 
                 <div className={FooterStyle.footerColumn}>
                     <h4>Contacto</h4>
-                    <p>Av. Corrientes 1234, C1043AAZ<br />Buenos Aires, Argentina</p>
-                    <p>Teléfono: +54 (11) 1234-5678</p>
-                    <p>Email: info@clinicaquirurgica3.com</p>
+                    <p>Hospital Maciel, 25 de Mayo 174, 11000 <br /> Montevideo, Uruguay</p>
+                    {/* <p>Teléfono: +54 (11) 1234-5678</p>  */}
+                    <p>Email: clinicaquirurgica3@gmail.com</p>
                 </div>
 
                 <div className={FooterStyle.footerColumn}>
@@ -47,7 +49,7 @@ const Footer = () => {
             </div>
 
             <div className={FooterStyle.footerBottom}>
-                <p>© 2024 Clínica Quirúrgica 3. Todos los derechos reservados.</p>
+                <p>© {getCurrentYear()} Clínica Quirúrgica 3. Todos los derechos reservados.</p>
             </div>
         </footer>
     );
