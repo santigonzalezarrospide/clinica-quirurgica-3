@@ -37,7 +37,7 @@
 }
 
 .searchInput:focus {
-    border: 2px solid #009688;
+    border: 2px solid #0d9488;
 }
 
 .searchIcon {
@@ -45,7 +45,7 @@
     left: 12px;
     top: 50%;
     transform: translateY(-50%);
-    color: #009688;
+    color: #0d9488;
     font-size: 1.2rem;
     pointer-events: none;
 }
@@ -72,11 +72,11 @@
     font-size: 0.9rem;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: color 0.2s, background-color 0.2s;
 }
 
 .filterButton.active {
-    background-color: #009688;
+    background-color: #0d9488;
     color: white;
     border-radius: 5px;
 }
@@ -107,19 +107,84 @@
 }
 
 .pagination {
+    background-color: #ffffff;
+    margin: 20px auto;
+    width: 90%;
+    border-radius: 8px;
+    padding: 12px;
     display: flex;
     justify-content: center;
+  }
+  
+  .paginationInner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 10px;
-    margin-top: 20px;
+  }
+  
+  /* La lista de ReactPaginate (usa clase diferente para evitar conflictos) */
+  .paginationList {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Texto centrado debajo */
+  .paginationInfo {
+    font-size: 0.9rem;
+    color: #555;
+  }
+
+/* Botones Anterior y Siguiente */
+.paginationButton {
+    background-color: transparent;
+    /* Sin fondo */
+    color: #00796b;
+    /* Color del texto */
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: color 0.2s, background-color 0.2s;
 }
 
-.paginationActive{
-    background-color: #009688;
-    color: white;
-    border-radius: 5px;
-    width: 20px;
-    text-align: center;
+.paginationButton:hover {
+    background-color: #ecfdf5;
 }
+
+/* Números de página */
+.pagination :global(li:not(.previous):not(.next) a) {
+    display: block;
+    padding: 8px 14px;
+    background-color: #ecfdf5;
+    border-radius: 5px;
+    color: #0d9488;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s, background-color 0.2s;
+    text-align: center;
+    min-width: 32px;
+}
+
+/* Hover en números */
+.pagination :global(li:not(.previous):not(.next) a:hover) {
+    background-color: #0d9488;
+    color: white;
+}
+
+/* Página activa */
+.paginationActive {
+    background-color: #0d9488 !important;
+    color: white !important;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+
 /* Ajustes para tamaños de pantalla */
 @media (min-width: 1024px) {
     .cardsContainer {

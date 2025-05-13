@@ -9,32 +9,32 @@ const CarruselInstituciones = () => {
   const instituciones = [
     {
       nombre: 'Hospital Maciel',
-      logo: '/public/img/logo_hospital_maciel.png',
+      logo: '/img/logo_hospital_maciel.png',
       enlace: 'https://hospitalmaciel.com.uy/',
     },
     {
       nombre: 'Facultad de medicina',
-      logo: '/public/img/logo_fmed.png',
+      logo: '/img/logo_fmed.png',
       enlace: 'https://www.fmed.edu.uy/',
     },
     {
       nombre: 'Universidad de la República (UdelaR)',
-      logo: '/public/img/logo_udelar.png',
+      logo: '/img/logo_udelar.png',
       enlace: 'https://udelar.edu.uy/portal/',
     },
     {
       nombre: 'Sociedad de Cirugía del Uruguay',
-      logo: '/public/img/logo_sociedad_cirugia.jpg',
+      logo: '/img/logo_sociedad_cirugia.jpg',
       enlace: 'https://scu.org.uy/',
     },
     {
       nombre: 'Ministerio de Salud Pública ',
-      logo: '/public/img/logo_mspjpg.jpg',
+      logo: '/img/logo_mspjpg.jpg',
       enlace: 'https://www.gub.uy/ministerio-salud-publica/',
     },
     {
       nombre: 'ASSE',
-      logo: '/public/img/logo_asse.jpeg',
+      logo: '/img/logo_asse.jpeg',
       enlace: 'https://www.asse.com.uy/home',
     }
   ];
