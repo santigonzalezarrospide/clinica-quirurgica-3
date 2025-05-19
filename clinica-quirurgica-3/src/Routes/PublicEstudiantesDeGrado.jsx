@@ -5,20 +5,29 @@ import { toast } from 'react-toastify';
 import styles from '../Styles/PublicEstudiantes.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFile, faVideo, faImage, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import ReactPaginate from 'react-paginate';
 
 const PublicEstudiantesDeGrado = () => {
-  const [materiales, setMateriales] = useState([]); // Todos los materiales
-  const [activeFilter, setActiveFilter] = useState('Documento'); // Filtro activo (tipo)
-  const [searchQuery, setSearchQuery] = useState(''); // Valor del input de búsqueda
-  const [filteredMateriales, setFilteredMateriales] = useState([]); // Materiales filtrados
+  const [materiales, setMateriales] = useState([]);
+  const [activeFilter, setActiveFilter] = useState('Documento');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredMateriales, setFilteredMateriales] = useState([]);
 
-  // Cargar materiales desde la API
+  const [currentPage, setCurrentPage] = useState(0);
+  const materialesPerPage = 24;
+
+  // Diccionario para pluralizar correctamente
+  const pluralMap = {
+    Documento: 'documentos',
+    Imagen: 'imágenes',
+    Video: 'videos',
+  };
+
   const fetchMateriales = async () => {
     try {
       const response = await getMateriales();
-      console.log(response.data);
       setMateriales(response.data);
-      filterMateriales(response.data, 'Documento', ''); // Cargar los documentos por defecto
+      filterMateriales(response.data, activeFilter, searchQuery);
     } catch (error) {
       toast.error('Error al obtener los materiales');
     }
@@ -28,27 +37,34 @@ const PublicEstudiantesDeGrado = () => {
     fetchMateriales();
   }, []);
 
-  // Filtrar materiales por tipo y título
   const filterMateriales = (data, type, query) => {
     const filtered = data.filter(
       (material) =>
-        material.tipo === type && material.titulo.toLowerCase().includes(query.toLowerCase())
+        material.tipo === type &&
+        material.titulo.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredMateriales(filtered);
   };
 
-  // Manejar cambios en el filtro de tipo
   const handleFilterChange = (type) => {
     setActiveFilter(type);
+    setCurrentPage(0);
     filterMateriales(materiales, type, searchQuery);
   };
 
-  // Manejar cambios en el input de búsqueda
   const handleSearchChange = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
+    setCurrentPage(0);
     filterMateriales(materiales, activeFilter, query);
   };
+
+  const handlePageClick = (data) => {
+    setCurrentPage(data.selected);
+  };
+
+  const offset = currentPage * materialesPerPage;
+  const currentMateriales = filteredMateriales.slice(offset, offset + materialesPerPage);
 
   return (
     <div>
@@ -62,10 +78,11 @@ const PublicEstudiantesDeGrado = () => {
             placeholder="Buscar..."
             className={styles.searchInput}
             value={searchQuery}
-            onChange={handleSearchChange} // Actualiza el estado de búsqueda
+            onChange={handleSearchChange}
           />
           <FontAwesomeIcon icon={faMagnifyingGlass} className={styles.searchIcon} />
         </div>
+
         <div className={styles.filters}>
           <button
             className={`${styles.filterButton} ${activeFilter === 'Documento' ? styles.active : ''}`}
@@ -88,10 +105,10 @@ const PublicEstudiantesDeGrado = () => {
         </div>
       </div>
 
-      {/* Lista de materiales filtrados */}
+      {/* Lista de materiales paginados */}
       <div className={styles.cardsContainer}>
-        {filteredMateriales.length > 0 ? (
-          filteredMateriales.map((material) => (
+        {currentMateriales.length > 0 ? (
+          currentMateriales.map((material) => (
             <CardMateriales
               key={material.id}
               tipo={material.tipo}
@@ -102,9 +119,28 @@ const PublicEstudiantesDeGrado = () => {
             />
           ))
         ) : (
-          <p>No se encontraron materiales.</p>
+          <p>No se encontraron  {pluralMap[activeFilter]}.</p>
         )}
       </div>
+      
+      {filteredMateriales.length > materialesPerPage && (
+        <div className={styles.pagination}>
+          <div className={styles.paginationInner}>
+            <ReactPaginate
+              previousLabel={<button className={styles.paginationButton}>Anterior</button>}
+              nextLabel={<button className={styles.paginationButton}>Siguiente</button>}
+              pageCount={Math.ceil(filteredMateriales.length / materialesPerPage)}
+              onPageChange={handlePageClick}
+              containerClassName={styles.paginationList}
+              activeLinkClassName={styles.paginationActive}
+              forcePage={currentPage}
+            />
+            <span className={styles.paginationInfo}>
+              Mostrando {currentMateriales.length} de {filteredMateriales.length} {pluralMap[activeFilter]}
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
