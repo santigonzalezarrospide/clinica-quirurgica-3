@@ -15,6 +15,9 @@ import PublicPostgrado from "./Routes/PublicPostgrado";
 import PublicBiblioteca from "./Routes/PublicBiblioteca";
 import PublicUnidades from "./Routes/PublicUnidades";
 
+import { ToastContainer } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css';   
+
 function App() {
   const location = useLocation();
 
@@ -38,8 +41,10 @@ function App() {
         </Routes>
       </div>
       {location.pathname !== routes.adminPanel && <Footer />}
+
+      <ToastContainer />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

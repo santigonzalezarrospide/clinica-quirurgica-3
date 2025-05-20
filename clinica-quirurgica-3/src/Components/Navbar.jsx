@@ -68,11 +68,11 @@ const Navbar = () => {
                     </Link>
                 </li>
 
-                <li className={NavbarStyle.navListLi}>
+                {/* <li className={NavbarStyle.navListLi}>
                     <Link to={routes.paciente}>
                         <h4 className={NavbarStyle.navMenu}>Usuarios</h4>
                     </Link>
-                </li>
+                </li>*/}
 
                 <li className={NavbarStyle.navListLi}>
                     <Link to={routes.equipo}>
@@ -86,11 +86,11 @@ const Navbar = () => {
                     </Link>
                 </li>
 
-                <li className={NavbarStyle.navListLi}>
+                {/* <li className={NavbarStyle.navListLi}>
                     <Link to={routes.unidades}>
                         <h4 className={NavbarStyle.navMenu}>Unidades Asistenciales</h4>
                     </Link>
-                </li>
+                </li> */}
 
                 <li className={NavbarStyle.navListLi}>
                     <Link to={routes.contacto}>
