@@ -15,6 +15,9 @@ const PublicBiblioteca = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const publicacionesPerPage = 10;
 
+  const [searchTerm, setSearchTerm] = useState('');
+
+
   const fetchPublicaciones = async () => {
     try {
       const response = await getBiblioteca();
@@ -33,8 +36,14 @@ const PublicBiblioteca = () => {
     setCurrentPage(data.selected);
   };
 
+  const filteredPublicaciones = publicaciones.filter((pub) =>
+    pub.titulo.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+
   const offset = currentPage * publicacionesPerPage;
-  const currentPublicaciones = publicaciones.slice(offset, offset + publicacionesPerPage);
+  const currentPublicaciones = filteredPublicaciones.slice(offset, offset + publicacionesPerPage);
+
 
   return (
     <div>
@@ -46,6 +55,11 @@ const PublicBiblioteca = () => {
             type="text"
             placeholder="Buscar..."
             className={styles.searchInput}
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              setCurrentPage(0);
+            }}
           />
           <FontAwesomeIcon icon={faMagnifyingGlass} className={styles.searchIcon} />
         </div>
@@ -62,21 +76,22 @@ const PublicBiblioteca = () => {
       </div>
 
       <div className={styles.pagination}>
-        <ReactPaginate
-          previousLabel={<button className={styles.paginationButton}>Anterior</button>}
-          nextLabel={<button className={styles.paginationButton}>Siguiente</button>}
-          breakLabel={'...'}
-          breakClassName={'break-me'}
-          pageCount={Math.ceil(publicaciones.length / publicacionesPerPage)}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={handlePageClick}
-          containerClassName={styles.pagination}
-          activeClassName={`${styles.paginationActive} ${styles.activeDark}`}
-        />
-        
+        <div className={styles.paginationInner}>
+          <ReactPaginate
+            previousLabel={<button className={styles.paginationButton}>Anterior</button>}
+            nextLabel={<button className={styles.paginationButton}>Siguiente</button>}
+            pageCount={Math.ceil(publicaciones.length / publicacionesPerPage)}
+            onPageChange={handlePageClick}
+            containerClassName={styles.paginationList}
+            activeLinkClassName={styles.paginationActive}
+          />
+          <span className={styles.paginationInfo}>
+            Mostrando {currentPublicaciones.length} de {publicaciones.length} registros
+          </span>
+        </div>
       </div>
-      <span>Mostrando {currentPublicaciones.length} de {publicaciones.length} registros</span>
+
+
     </div>
   );
 };
